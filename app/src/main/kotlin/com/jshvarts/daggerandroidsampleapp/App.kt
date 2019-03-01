@@ -2,7 +2,8 @@ package com.jshvarts.daggerandroidsampleapp
 
 import android.app.*
 
-import com.jshvarts.daggerandroidsampleapp.di.*
+import com.jshvarts.daggerandroidsampleapp.dagger.*
+import com.jshvarts.daggerandroidsampleapp.lobby.*
 
 import dagger.android.*
 
@@ -11,10 +12,14 @@ import javax.inject.*
 /**
  * https://github.com/google/dagger/issues/1267
  * https://github.com/roshakorost/Dagger-Android-Cookbook
+ * https://proandroiddev.com/how-to-android-dagger-2-10-2-11-butterknife-mvp-part-1-eb0f6b970fd
+ * https://github.com/vestrel00/android-dagger-butterknife-mvp
  */
 class App:
   Application(),
-  HasActivityInjector, HasFragmentInjector {
+  HasActivityInjector,
+  HasFragmentInjector,
+  HasFooInjector {
 
   @Inject
   lateinit var activityInjector: DispatchingAndroidInjector<Activity>
@@ -22,22 +27,12 @@ class App:
   @Inject
   lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
+  @Inject
+  lateinit var fooInjector: DispatchingAndroidInjector<BaseFragmentFoo>
+
   private val appComponent by lazy {
     DaggerAppComponent.builder()
-      .application(this)
-      .build()
-  }
-
-  private var activityComponent: ActivityComponent? = null
-
-  fun enterActivityScope(activity: Activity) {
-    activityComponent = appComponent.activityComponent()
-      .activity(activity)
-      .build()
-  }
-
-  fun leaveActivityScope() {
-    activityComponent = null
+      .create(this)
   }
 
   override fun onCreate() {
@@ -46,16 +41,9 @@ class App:
     appComponent.inject(this)
   }
 
-  override fun activityInjector() =
-    AndroidInjector<Activity> {
-      // Try to inject using more tightly scoped components first.
-      activityComponent?.activityInjector()?.maybeInject(it)
-        ?: activityInjector.maybeInject(it)
-    }
+  override fun activityInjector() = activityInjector
 
-  override fun fragmentInjector() =
-    AndroidInjector<Fragment> {
-      activityComponent?.fragmentInjector()?.maybeInject(it)
-        ?: fragmentInjector.maybeInject(it)
-    }
+  override fun fragmentInjector() = fragmentInjector
+
+  override fun fooInjector() = fooInjector
 }

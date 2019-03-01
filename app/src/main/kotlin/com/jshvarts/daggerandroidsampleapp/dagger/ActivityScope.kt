@@ -1,4 +1,4 @@
-package com.jshvarts.daggerandroidsampleapp.di
+package com.jshvarts.daggerandroidsampleapp.dagger
 
 import javax.inject.*
 

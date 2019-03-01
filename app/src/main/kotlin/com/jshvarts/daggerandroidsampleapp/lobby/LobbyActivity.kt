@@ -1,7 +1,8 @@
 package com.jshvarts.daggerandroidsampleapp.lobby
 
-import android.app.*
+import android.content.*
 import android.os.*
+import android.view.*
 import android.widget.*
 
 import butterknife.*
@@ -15,10 +16,10 @@ class LobbyActivity:
   BaseActivity() {
 
   @Inject
-  lateinit var commonHelloService: CommonHelloService
+  lateinit var theContext: Context
 
   @Inject
-  lateinit var alertDialogBuilder: AlertDialog.Builder
+  lateinit var commonHelloService: CommonHelloService
 
   @Inject
   lateinit var lobbyActivityHelloService: LobbyActivityHelloService
@@ -26,8 +27,12 @@ class LobbyActivity:
   @BindView(R.id.common_hello)
   lateinit var commonHelloTextView: TextView
 
-  @BindView(R.id.lobby_hello)
-  lateinit var lobbyHelloTextView: TextView
+  @BindView(R.id.lobby_activity_hello)
+  lateinit var lobbyActivityHelloTextView: TextView
+
+  fun onNewActivityButtonClick(view: View) {
+    startActivity(Intent(this, LobbyActivity::class.java))
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -37,21 +42,28 @@ class LobbyActivity:
     ButterKnife.bind(this)
 
     sayCommonHello()
-    sayLobbyHello()
-    showAlertDialog()
+    sayActivityHello()
+    showDynamicLobbyFragment()
+    //showAlertDialog()
   }
 
   private fun sayCommonHello() {
     commonHelloTextView.text = commonHelloService.sayHello()
   }
 
-  private fun sayLobbyHello() {
-    lobbyHelloTextView.text = lobbyActivityHelloService.sayHello()
+  private fun sayActivityHello() {
+    lobbyActivityHelloTextView.text = lobbyActivityHelloService.sayHello()
+  }
+
+  private fun showDynamicLobbyFragment() {
+    fragmentManager.beginTransaction()
+      .add(R.id.lobby_fragment_container, LobbyFragment())
+      .commit()
   }
 
   private fun showAlertDialog() {
     alertDialogBuilder.setTitle("Hello")
-      .setMessage("Hello, World from Activity!")
+      .setMessage("Hello, World from Activity created by ${theContext.hashCode()}")
       .create()
       .show()
   }
