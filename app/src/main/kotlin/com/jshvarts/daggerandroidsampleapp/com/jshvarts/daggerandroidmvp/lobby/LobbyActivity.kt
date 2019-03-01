@@ -1,60 +1,58 @@
 package com.jshvarts.daggerandroidsampleapp.lobby
 
-import android.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.app.*
+import android.os.*
+import android.widget.*
+
+import butterknife.*
+
 import com.jshvarts.daggerandroidsampleapp.R
-import com.jshvarts.daggerandroidsampleapp.common.data.CommonHelloService
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.HasFragmentInjector
-import javax.inject.Inject
-import dagger.android.DispatchingAndroidInjector
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
+import com.jshvarts.daggerandroidsampleapp.common.data.*
 
+import javax.inject.*
 
-class LobbyActivity : AppCompatActivity(), HasFragmentInjector {
+class LobbyActivity:
+  BaseActivity() {
 
-    @Inject
-    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+  @Inject
+  lateinit var commonHelloService: CommonHelloService
 
-    @Inject
-    lateinit var commonHelloService: CommonHelloService
+  @Inject
+  lateinit var alertDialogBuilder: AlertDialog.Builder
 
-    @Inject
-    lateinit var lobbyActivityHelloService: LobbyActivityHelloService
+  @Inject
+  lateinit var lobbyActivityHelloService: LobbyActivityHelloService
 
-    @BindView(R.id.common_hello)
-    lateinit var commonHelloTextView: TextView
+  @BindView(R.id.common_hello)
+  lateinit var commonHelloTextView: TextView
 
-    @BindView(R.id.lobby_hello)
-    lateinit var lobbyHelloTextView: TextView
+  @BindView(R.id.lobby_hello)
+  lateinit var lobbyHelloTextView: TextView
 
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.lobby_activity)
+    setContentView(R.layout.lobby_activity)
 
-        ButterKnife.bind(this)
+    ButterKnife.bind(this)
 
-        sayCommonHello()
+    sayCommonHello()
+    sayLobbyHello()
+    showAlertDialog()
+  }
 
-        sayLobbyHello()
-        //println("call to CommonHelloService: " + commonHelloService.sayHello())
-        //println("call to LobbyActivityHelloService: " + lobbyActivityHelloService.sayHello())
-    }
+  private fun sayCommonHello() {
+    commonHelloTextView.text = commonHelloService.sayHello()
+  }
 
-    override fun fragmentInjector(): AndroidInjector<Fragment> = fragmentDispatchingAndroidInjector
+  private fun sayLobbyHello() {
+    lobbyHelloTextView.text = lobbyActivityHelloService.sayHello()
+  }
 
-    private fun sayCommonHello() {
-        commonHelloTextView.text = commonHelloService.sayHello()
-    }
-
-    private fun sayLobbyHello() {
-        lobbyHelloTextView.text = lobbyActivityHelloService.sayHello()
-    }
+  private fun showAlertDialog() {
+    alertDialogBuilder.setTitle("Hello")
+      .setMessage("Hello, World from Activity!")
+      .create()
+      .show()
+  }
 }
-

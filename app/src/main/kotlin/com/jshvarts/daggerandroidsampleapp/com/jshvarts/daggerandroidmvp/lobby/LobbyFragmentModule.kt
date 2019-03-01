@@ -1,11 +1,10 @@
 package com.jshvarts.daggerandroidsampleapp.lobby
 
-import dagger.Module
-import dagger.Provides
+import dagger.*
 
 @Module
 class LobbyFragmentModule {
 
-    @Provides
-    fun provideLobbyFragmentHelloService() = LobbyFragmentHelloService()
+  @Provides
+  fun provideLobbyFragmentHelloService() = LobbyFragmentHelloService()
 }

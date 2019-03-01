@@ -1,16 +1,40 @@
 package com.jshvarts.daggerandroidsampleapp.di
 
-import com.jshvarts.daggerandroidsampleapp.App
-import dagger.Component
-import dagger.android.AndroidInjectionModule
-import javax.inject.Singleton
+import android.app.*
+import android.content.*
+
+import com.jshvarts.daggerandroidsampleapp.*
+import com.jshvarts.daggerandroidsampleapp.common.data.*
+
+import dagger.*
+import dagger.android.*
+
+import javax.inject.*
 
 @Singleton
-@Component(modules = arrayOf(
-        AndroidInjectionModule::class,
-        AppModule::class,
-        ActivitiesModule::class
-))
+@Component(
+  modules = [
+    AndroidInjectionModule::class,
+    AppModule::class
+  ]
+)
 interface AppComponent {
-    fun inject(app: App)
+
+  @Component.Builder
+  interface Builder {
+
+    @BindsInstance
+    fun application(application: Application): Builder
+
+    fun appModule(module: AppModule): Builder
+
+    fun build(): AppComponent
+  }
+
+  fun activityComponent(): ActivityComponent.Builder
+
+  fun context(): Context
+  fun commonHelloService(): CommonHelloService
+
+  fun inject(application: App)
 }

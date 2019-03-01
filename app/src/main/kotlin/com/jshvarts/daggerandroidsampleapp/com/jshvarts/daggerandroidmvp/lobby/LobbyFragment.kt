@@ -1,52 +1,58 @@
 package com.jshvarts.daggerandroidsampleapp.lobby
 
-import android.app.Fragment
-import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import dagger.android.AndroidInjection
-import javax.inject.Inject
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
+import android.app.*
+import android.os.*
+import android.view.*
+import android.widget.*
+
+import butterknife.*
+
 import com.jshvarts.daggerandroidsampleapp.R
-import butterknife.Unbinder
 
-class LobbyFragment : Fragment() {
+import javax.inject.*
 
-    @Inject
-    lateinit var lobbyFragmentHelloService: LobbyFragmentHelloService
+class LobbyFragment:
+  BaseFragment() {
 
-    @BindView(R.id.lobby_fragment_hello)
-    lateinit var lobbyFragmentHelloTextView: TextView
+  @Inject
+  lateinit var alertDialogBuilder: AlertDialog.Builder
 
-    lateinit var unbinder: Unbinder
+  @Inject
+  lateinit var lobbyFragmentHelloService: LobbyFragmentHelloService
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.lobby_fragment, container, false)
-        unbinder = ButterKnife.bind(this, view)
-        return view
-    }
+  @BindView(R.id.lobby_fragment_hello)
+  lateinit var lobbyFragmentHelloTextView: TextView
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+  lateinit var unbinder: Unbinder
 
-        sayFragmentHello()
-    }
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+  ): View? {
+    val view = inflater.inflate(R.layout.lobby_fragment, container, false)
+    unbinder = ButterKnife.bind(this, view)
+    return view
+  }
 
-    override fun onAttach(context: Context?) {
-        AndroidInjection.inject(this)
-        super.onAttach(context)
-    }
+  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        unbinder.unbind()
-    }
+    sayFragmentHello()
+    showAlertDialog()
+  }
 
-    private fun sayFragmentHello() {
-        lobbyFragmentHelloTextView.text = lobbyFragmentHelloService.sayHello()
-    }
+  override fun onDestroyView() {
+    super.onDestroyView()
+    unbinder.unbind()
+  }
+
+  private fun sayFragmentHello() {
+    lobbyFragmentHelloTextView.text = lobbyFragmentHelloService.sayHello()
+  }
+
+  private fun showAlertDialog() {
+    alertDialogBuilder.setTitle("Hello")
+      .setMessage("Hello, World from Fragment!")
+      .create()
+      .show()
+  }
 }
