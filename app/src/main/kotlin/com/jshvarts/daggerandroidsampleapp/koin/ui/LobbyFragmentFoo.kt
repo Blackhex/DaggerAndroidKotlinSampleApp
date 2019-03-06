@@ -1,8 +1,7 @@
-package com.jshvarts.daggerandroidsampleapp.com.jshvarts.daggerandroidmvp.lobby
+package com.jshvarts.daggerandroidsampleapp.koin.ui
 
 import android.content.*
 
-import com.jshvarts.daggerandroidsampleapp.lobby.*
 import javax.inject.*
 
 class LobbyFragmentFoo(fragment: LobbyFragment):

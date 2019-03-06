@@ -1,4 +1,4 @@
-package com.jshvarts.daggerandroidsampleapp.lobby
+package com.jshvarts.daggerandroidsampleapp.dependencies
 
 class LobbyActivityHelloService {
 

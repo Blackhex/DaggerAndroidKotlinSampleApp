@@ -1,9 +1,9 @@
-package com.jshvarts.daggerandroidsampleapp.dagger
+package com.jshvarts.daggerandroidsampleapp.dagger.di
 
 import android.app.*
 
 import com.jshvarts.daggerandroidsampleapp.*
-import com.jshvarts.daggerandroidsampleapp.common.data.*
+import com.jshvarts.daggerandroidsampleapp.dependencies.*
 
 import dagger.*
 import dagger.android.*

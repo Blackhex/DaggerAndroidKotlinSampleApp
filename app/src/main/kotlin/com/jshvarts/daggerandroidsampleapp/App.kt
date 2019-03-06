@@ -2,10 +2,13 @@ package com.jshvarts.daggerandroidsampleapp
 
 import android.app.*
 
-import com.jshvarts.daggerandroidsampleapp.dagger.*
-import com.jshvarts.daggerandroidsampleapp.lobby.*
+import com.jshvarts.daggerandroidsampleapp.dagger.di.*
+import com.jshvarts.daggerandroidsampleapp.dagger.ui.*
+import com.jshvarts.daggerandroidsampleapp.koin.di.*
 
 import dagger.android.*
+
+import org.koin.android.ext.android.*
 
 import javax.inject.*
 
@@ -37,6 +40,16 @@ class App:
 
   override fun onCreate() {
     super.onCreate()
+
+    startKoin(
+      this,
+      listOf(
+        appModule,
+        activityModule,
+        lobbyActivityModule,
+        lobbyFragmentHelloService
+      )
+    )
 
     appComponent.inject(this)
   }

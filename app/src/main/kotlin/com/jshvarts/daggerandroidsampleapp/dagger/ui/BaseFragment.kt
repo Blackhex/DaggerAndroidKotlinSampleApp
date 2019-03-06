@@ -1,4 +1,4 @@
-package com.jshvarts.daggerandroidsampleapp.lobby
+package com.jshvarts.daggerandroidsampleapp.dagger.ui
 
 import android.app.*
 import android.content.*

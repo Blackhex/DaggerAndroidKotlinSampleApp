@@ -1,8 +1,8 @@
-package com.jshvarts.daggerandroidsampleapp.dagger
+package com.jshvarts.daggerandroidsampleapp.dagger.di
 
 import android.app.*
 
-import com.jshvarts.daggerandroidsampleapp.lobby.*
+import com.jshvarts.daggerandroidsampleapp.dagger.ui.*
 
 import dagger.android.*
 

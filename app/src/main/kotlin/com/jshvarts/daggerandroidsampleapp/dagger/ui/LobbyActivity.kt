@@ -1,4 +1,4 @@
-package com.jshvarts.daggerandroidsampleapp.lobby
+package com.jshvarts.daggerandroidsampleapp.dagger.ui
 
 import android.content.*
 import android.os.*
@@ -8,7 +8,7 @@ import android.widget.*
 import butterknife.*
 
 import com.jshvarts.daggerandroidsampleapp.R
-import com.jshvarts.daggerandroidsampleapp.common.data.*
+import com.jshvarts.daggerandroidsampleapp.dependencies.*
 
 import javax.inject.*
 
@@ -37,7 +37,7 @@ class LobbyActivity:
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    setContentView(R.layout.lobby_activity)
+    setContentView(R.layout.dagger_lobby_activity)
 
     ButterKnife.bind(this)
 

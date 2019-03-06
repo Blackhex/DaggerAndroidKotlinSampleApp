@@ -1,4 +1,4 @@
-package com.jshvarts.daggerandroidsampleapp.dagger
+package com.jshvarts.daggerandroidsampleapp.dagger.di
 
 import com.jshvarts.daggerandroidsampleapp.*
 

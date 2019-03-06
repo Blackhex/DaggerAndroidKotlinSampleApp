@@ -1,4 +1,4 @@
-package com.jshvarts.daggerandroidsampleapp.common.data
+package com.jshvarts.daggerandroidsampleapp.dependencies
 
 class CommonHelloService {
     fun sayHello() = "Hello from CommonHelloService ${hashCode()}"

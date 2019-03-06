@@ -7,6 +7,7 @@ apply(plugin: "kotlin-kapt")
 project.ext {
   supportLibraryVersion = "28.0.0"
   daggerVersion = "2.21"
+  koinVersion = "1.0.2"
   butterKnifeVersion = "8.5.1"
 }
 
@@ -52,6 +53,10 @@ dependencies {
   compile "com.google.dagger:dagger-android-support:$project.daggerVersion"
   annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
   kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+
+  // Koin Android
+  compile "org.koin:koin-android:$project.koinVersion"
+  compile "org.koin:koin-android-scope:$project.koinVersion"
 
   // ButterKnife
   compile "com.jakewharton:butterknife:$project.butterKnifeVersion"

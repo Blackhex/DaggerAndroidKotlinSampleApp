@@ -1,4 +1,4 @@
-package com.jshvarts.daggerandroidsampleapp.lobby
+package com.jshvarts.daggerandroidsampleapp.koin.ui
 
 import android.content.*
 import android.os.*
@@ -8,25 +8,20 @@ import android.widget.*
 import butterknife.*
 
 import com.jshvarts.daggerandroidsampleapp.R
-import com.jshvarts.daggerandroidsampleapp.com.jshvarts.daggerandroidmvp.lobby.*
-import com.jshvarts.daggerandroidsampleapp.common.data.*
+import com.jshvarts.daggerandroidsampleapp.dependencies.*
 
-import javax.inject.*
+import org.koin.android.ext.android.*
 
 class LobbyFragment:
   BaseFragment() {
 
-  @Inject
-  lateinit var theContext: Context
+  private val theContext: Context by inject()
 
-  @Inject
-  lateinit var commonHelloService: CommonHelloService
+  private val commonHelloService: CommonHelloService by inject()
 
-  @Inject
-  lateinit var lobbyActivityHelloService: LobbyActivityHelloService
+  private val lobbyActivityHelloService: LobbyActivityHelloService by inject()
 
-  @Inject
-  lateinit var lobbyFragmentHelloService: LobbyFragmentHelloService
+  private val lobbyFragmentHelloService: LobbyFragmentHelloService by inject()
 
   @BindView(R.id.common_hello)
   lateinit var commonHelloTextView: TextView
@@ -50,7 +45,7 @@ class LobbyFragment:
     return view
   }
 
-  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     sayCommonHello()
